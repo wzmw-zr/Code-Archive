@@ -1,0 +1,35 @@
+/home/zr/HaiZei/2020/1/29/project$ args
+args.cpp
+check
+check.cpp
+fbomb.txt
+include
+ls_demo
+main
+main_sol
+Makefile
+output
+src
+testcase1.in
+testcase2.in
+testcase3.in
+/home/zr/HaiZei/2020/1/29/project$ hello world!
+args
+arg1
+/home/zr/HaiZei/2020/1/29/project$ args
+args.cpp
+check
+check.cpp
+fbomb.txt
+include
+ls_demo
+main
+main_sol
+Makefile
+output
+src
+testcase1.in
+testcase2.in
+testcase3.in
+/home/zr/HaiZei/2020/1/29/project$ No Match
+/home/zr/HaiZei/2020/1/29/project$ 

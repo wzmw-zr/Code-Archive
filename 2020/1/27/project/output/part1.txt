@@ -1,0 +1,6 @@
+/home/zr/HaiZei/2020/1/27/project$ ls_demo:No such file or directory
+cd ls_demo
+1
+/home/zr/HaiZei/2020/1/27/project$ ..:No such file or directory
+1
+/home/zr/HaiZei/2020/1/27/project$2

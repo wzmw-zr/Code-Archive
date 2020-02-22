@@ -1,0 +1,6 @@
+/home/zr/HaiZei/2020/1/29/project$/home/zr/HaiZei/2020/1/29/project/ls_demo$ls_1.txt
+ls_2.txt
+/home/zr/HaiZei/2020/1/29/project/ls_demo$/home/zr/HaiZei/2020/1/29/project$cd ls_demo
+ls
+cd ..
+/home/zr/HaiZei/2020/1/29/project$
