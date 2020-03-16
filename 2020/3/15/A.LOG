@@ -1,0 +1,245 @@
+0001	LS(1)                          User Commands                          LS(1)
+0002	
+0003	NAME
+0004	       ls - list directory contents
+0005	
+0006	SYNOPSIS
+0007	       ls [OPTION]... [FILE]...
+0008	
+0009	DESCRIPTION
+0010	       List information about the FILEs (the current directory by default).
+0011	       Sort entries alphabetically if none of -cftuvSUX nor --sort is spec‐
+0012	       ified.
+0013	
+0014	       Mandatory  arguments to long options are mandatory for short options
+0015	       too.
+0016	
+0017	       -a, --all
+0018	              do not ignore entries starting with .
+0019	
+0020	       -A, --almost-all
+0021	              do not list implied . and ..
+0022	
+0023	       --author
+0024	              with -l, print the author of each file
+0025	
+0026	       -b, --escape
+0027	              print C-style escapes for nongraphic characters
+0028	
+0029	       --block-size=SIZE
+0030	              with -l, scale  sizes  by  SIZE  when  printing  them;  e.g.,
+0031	              '--block-size=M'; see SIZE format below
+0032	
+0033	       -B, --ignore-backups
+0034	              do not list implied entries ending with ~
+0035	
+0036	       -c     with -lt: sort by, and show, ctime (time of last modification
+0037	              of file status information); with -l: show ctime and sort  by
+0038	              name; otherwise: sort by ctime, newest first
+0039	
+0040	       -C     list entries by columns
+0041	
+0042	       --color[=WHEN]
+0043	              colorize  the  output; WHEN can be 'always' (default if omit‐
+0044	              ted), 'auto', or 'never'; more info below
+0045	
+0046	       -d, --directory
+0047	              list directories themselves, not their contents
+0048	
+0049	       -D, --dired
+0050	              generate output designed for Emacs' dired mode
+0051	
+0052	       -f     do not sort, enable -aU, disable -ls --color
+0053	
+0054	       -F, --classify
+0055	              append indicator (one of */=>@|) to entries
+0056	
+0057	       --file-type
+0058	              likewise, except do not append '*'
+0059	
+0060	       --format=WORD
+0061	              across -x, commas -m, horizontal -x, long  -l,  single-column
+0062	              -1, verbose -l, vertical -C
+0063	
+0064	       --full-time
+0065	              like -l --time-style=full-iso
+0066	
+0067	       -g     like -l, but do not list owner
+0068	
+0069	       --group-directories-first
+0070	              group directories before files;
+0071	
+0072	              can  be  augmented  with  a  --sort  option,  but  any use of
+0073	              --sort=none (-U) disables grouping
+0074	
+0075	       -G, --no-group
+0076	              in a long listing, don't print group names
+0077	
+0078	       -h, --human-readable
+0079	              with -l and -s, print sizes like 1K 234M 2G etc.
+0080	
+0081	       --si   likewise, but use powers of 1000 not 1024
+0082	
+0083	       -H, --dereference-command-line
+0084	              follow symbolic links listed on the command line
+0085	
+0086	       --dereference-command-line-symlink-to-dir
+0087	              follow each command line symbolic link
+0088	
+0089	              that points to a directory
+0090	
+0091	       --hide=PATTERN
+0092	              do not list implied entries matching shell PATTERN  (overrid‐
+0093	              den by -a or -A)
+0094	
+0095	       --hyperlink[=WHEN]
+0096	              hyperlink  file names; WHEN can be 'always' (default if omit‐
+0097	              ted), 'auto', or 'never'
+0098	
+0099	       --indicator-style=WORD
+0100	              append indicator with style WORD to entry  names:  none  (de‐
+0101	              fault), slash (-p), file-type (--file-type), classify (-F)
+0102	
+0103	       -i, --inode
+0104	              print the index number of each file
+0105	
+0106	       -I, --ignore=PATTERN
+0107	              do not list implied entries matching shell PATTERN
+0108	
+0109	       -k, --kibibytes
+0110	              default to 1024-byte blocks for disk usage; used only with -s
+0111	              and per directory totals
+0112	
+0113	       -l     use a long listing format
+0114	
+0115	       -L, --dereference
+0116	              when showing file information for a symbolic link,  show  in‐
+0117	              formation  for  the  file the link references rather than for
+0118	              the link itself
+0119	
+0120	       -m     fill width with a comma separated list of entries
+0121	
+0122	       -n, --numeric-uid-gid
+0123	              like -l, but list numeric user and group IDs
+0124	
+0125	       -N, --literal
+0126	              print entry names without quoting
+0127	
+0128	       -o     like -l, but do not list group information
+0129	
+0130	       -p, --indicator-style=slash
+0131	              append / indicator to directories
+0132	
+0133	       -q, --hide-control-chars
+0134	              print ? instead of nongraphic characters
+0135	
+0136	       --show-control-chars
+0137	              show nongraphic characters as-is (the default, unless program
+0138	              is 'ls' and output is a terminal)
+0139	
+0140	       -Q, --quote-name
+0141	              enclose entry names in double quotes
+0142	
+0143	       --quoting-style=WORD
+0144	              use  quoting  style  WORD  for  entry names: literal, locale,
+0145	              shell, shell-always,  shell-escape,  shell-escape-always,  c,
+0146	              escape (overrides QUOTING_STYLE environment variable)
+0147	
+0148	       -r, --reverse
+0149	              reverse order while sorting
+0150	
+0151	       -R, --recursive
+0152	              list subdirectories recursively
+0153	
+0154	       -s, --size
+0155	              print the allocated size of each file, in blocks
+0156	
+0157	       -S     sort by file size, largest first
+0158	
+0159	       --sort=WORD
+0160	              sort  by  WORD  instead  of  name: none (-U), size (-S), time
+0161	              (-t), version (-v), extension (-X)
+0162	
+0163	       --time=WORD
+0164	              with -l, show time as WORD instead  of  default  modification
+0165	              time: atime or access or use (-u); ctime or status (-c); also
+0166	              use specified time as sort key if --sort=time (newest first)
+0167	
+0168	       --time-style=TIME_STYLE
+0169	              time/date format with -l; see TIME_STYLE below
+0170	
+0171	       -t     sort by modification time, newest first
+0172	
+0173	       -T, --tabsize=COLS
+0174	              assume tab stops at each COLS instead of 8
+0175	
+0176	       -u     with -lt: sort by, and show, access time; with -l:  show  ac‐
+0177	              cess  time  and sort by name; otherwise: sort by access time,
+0178	              newest first
+0179	
+0180	       -U     do not sort; list entries in directory order
+0181	
+0182	       -v     natural sort of (version) numbers within text
+0183	
+0184	       -w, --width=COLS
+0185	              set output width to COLS.  0 means no limit
+0186	
+0187	       -x     list entries by lines instead of by columns
+0188	
+0189	       -X     sort alphabetically by entry extension
+0190	
+0191	       -Z, --context
+0192	              print any security context of each file
+0193	
+0194	       -1     list one file per line.  Avoid '\n' with -q or -b
+0195	
+0196	       --help display this help and exit
+0197	
+0198	       --version
+0199	              output version information and exit
+0200	
+0201	       The SIZE argument is an integer and optional unit (example:  10K  is
+0202	       10*1024).   Units  are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,...
+0203	       (powers of 1000).  Binary prefixes can be used, too:  KiB=K,  MiB=M,
+0204	       and so on.
+0205	
+0206	       The  TIME_STYLE  argument can be full-iso, long-iso, iso, locale, or
+0207	       +FORMAT.  FORMAT is interpreted like in date(1).  If FORMAT is  FOR‐
+0208	       MAT1<newline>FORMAT2,  then  FORMAT1 applies to non-recent files and
+0209	       FORMAT2 to recent files.  TIME_STYLE prefixed  with  'posix-'  takes
+0210	       effect  only outside the POSIX locale.  Also the TIME_STYLE environ‐
+0211	       ment variable sets the default style to use.
+0212	
+0213	       Using color to distinguish file types is disabled  both  by  default
+0214	       and  with  --color=never.   With  --color=auto, ls emits color codes
+0215	       only when standard output is connected to a terminal.  The LS_COLORS
+0216	       environment  variable  can  change  the settings.  Use the dircolors
+0217	       command to set it.
+0218	
+0219	   Exit status:
+0220	       0      if OK,
+0221	
+0222	       1      if minor problems (e.g., cannot access subdirectory),
+0223	
+0224	       2      if serious trouble (e.g., cannot  access  command-line  argu‐
+0225	              ment).
+0226	
+0227	AUTHOR
+0228	       Written by Richard M. Stallman and David MacKenzie.
+0229	
+0230	REPORTING BUGS
+0231	       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+0232	       Report    any    translation    bugs   to   <https://translationpro‐
+0233	       ject.org/team/>
+0234	
+0235	COPYRIGHT
+0236	       Copyright © 2019 Free Software Foundation, Inc.  License GPLv3+: GNU
+0237	       GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+0238	       This  is  free software: you are free to change and redistribute it.
+0239	       There is NO WARRANTY, to the extent permitted by law.
+0240	
+0241	SEE ALSO
+0242	       Full documentation <https://www.gnu.org/software/coreutils/ls>
+0243	       or available locally via: info '(coreutils) ls invocation'
+0244	
+0245	GNU coreutils 8.31             November 2019                          LS(1)
