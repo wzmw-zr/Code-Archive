@@ -1,0 +1,38 @@
+FOPEN(3)                 Linux Programmer's Manual                 FOPEN(3)
+
+NAME
+       fopen, fdopen, freopen - stream open functions
+
+SYNOPSIS
+       #include <stdio.h>
+
+       FILE *fopen(const char *pathname, const char *mode);
+
+       FILE *fdopen(int fd, const char *mode);
+
+       FILE *freopen(const char *pathname, const char *mode, FILE *stream);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       fdopen(): _POSIX_C_SOURCE
+
+DESCRIPTION
+       The fopen() function opens the file whose name is the string pointed
+       to by pathname and associates a stream with it.
+
+       The argument mode points to a string beginning with one of the  fol‐
+       lowing sequences (possibly followed by additional characters, as de‐
+       scribed below):
+
+       r      Open text file for reading.  The stream is positioned at  the
+              beginning of the file.
+
+       r+     Open  for  reading  and writing.  The stream is positioned at
+              the beginning of the file.
+
+       w      Truncate file to zero length or create text file for writing.
+              The stream is positioned at the beginning of the file.
+
+       w+     Open for reading and writing.  The file is created if it does
+              not exist, otherwise it is truncated.  The  stream  is  posi‐
+              tioned at the beginning of the file.

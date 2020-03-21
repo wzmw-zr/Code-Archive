@@ -238,6 +238,8 @@ void ColorPrint(mode_t mode, char *filename) {
     if (S_ISDIR(mode)) printf("\033[34m%s\033[0m", filename);
     else if (mode & S_IXUSR || mode & S_IXGRP || mode & S_IXOTH) 
     printf("\033[32m%s\033[0m", filename);
+    else if (S_ISLNK(mode)) printf("\033[1;32m%s\033[0m", filename);
+    else if (S_ISCHR(mode) || S_ISBLK(mode)) printf("\033[1;33m%s\033[0m", filename);
     else printf("%s", filename);
 }
 
