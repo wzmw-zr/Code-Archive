@@ -1,0 +1,1 @@
+gcc client.c ./2.src/tcp_client.c -lpthread -g
