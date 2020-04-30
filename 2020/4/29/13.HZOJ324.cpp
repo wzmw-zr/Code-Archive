@@ -36,6 +36,8 @@ void merge(int x, int y) {
 
 int query(int x, int y) {
     int a = get(x), b = get(y);
+    cout << "x = " << x << ", y = " << y << endl;
+    cout << val[x] << " " << val[y] << endl;
     if (a == b) return abs(val[x] - val[y]) - 1; 
     return -1;
 }
