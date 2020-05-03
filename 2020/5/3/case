@@ -1,0 +1,15 @@
+Connected to 106.12.82.107.
+220 (vsFTPd 3.0.3)
+Name (106.12.82.107:zr): zr
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+226 Directory send OK.
+ftp> quit
+221 Goodbye.
+
