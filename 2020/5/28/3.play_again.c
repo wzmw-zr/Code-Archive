@@ -11,20 +11,20 @@
 
 #define Q "Do you want another try?"
 
-int getresponce();
-void setcrmode();
+int get_response();
+void set_cr_mode();
 void tty_mode(int how);
 
 int main() {
     int response;
     tty_mode(0);
-    setcrmode();
-    response = getresponce();
+    set_cr_mode();
+    response = get_response();
     tty_mode(1);
     return response;
 }
 
-int getresponce() {
+int get_response() {
     printf(Q);
     printf("(y/n)? : ");
     switch (getchar()) {
@@ -37,7 +37,7 @@ int getresponce() {
     return -1;
 }
 
-void setcrmode() {
+void set_cr_mode() {
     struct termios ttystate;
     tcgetattr(0, &ttystate);
     ttystate.c_lflag &= ~ICANON;
