@@ -20,15 +20,21 @@ main:
         movi2fp f12,r0
         movd f6,f12
 
-Loop:
-        led f0,f2
+OutLoop:
+        ltd f0,f2
         bfpt End
+        addi r3,r0,3
         movd f8,f0
+InnerLoop: 
+        beqz r3, Back
         multd f8,f8,f0
-        multd f8,f8,f0
+        subi r3,r3,1
+        j InnerLoop
+Back: 
         addd f6,f6,f8
         subd f0,f0,f4
-        j Loop
+        j OutLoop
+
 End:
         sd Printf,f6
         addi r14,r0,PrintPar
