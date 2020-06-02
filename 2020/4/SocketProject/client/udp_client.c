@@ -26,7 +26,9 @@ int main(int argc, char **argv) {
         perror("socket");
         return -1;
     }
-    sendto(sockfd, msg, strlen(msg), 0, (struct sockaddr *)&server, sizeof(server));
+    while (1) { 
+        sendto(sockfd, msg, strlen(msg), 0, (struct sockaddr *)&server, sizeof(server));
+    }
     close(sockfd);
     return 0;
 } 

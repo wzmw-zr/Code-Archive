@@ -24,5 +24,6 @@
 #include <pthread.h>
 #include <poll.h>
 #include <sys/select.h>
+#include <sys/epoll.h>
 #include <errno.h>
 #endif
