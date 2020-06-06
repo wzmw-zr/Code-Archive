@@ -13,6 +13,7 @@
 #include "../game.h"
 
 char *conf = "./server.conf";
+int port;
 
 extern WINDOW *Football, *Message, *Help, *Score, *Write;
 

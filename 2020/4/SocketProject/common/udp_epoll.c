@@ -11,6 +11,8 @@
 #include "./udp_client.h"
 #include "./udp_server.h"
 
+extern int port;
+
 void add_event(int epoll_fd, int fd, int events) {
     struct epoll_event ev;
     ev.events = events;
@@ -27,14 +29,18 @@ void delete_event(int epoll_fd, int fd, int events) {
 
 int udp_connect(int epoll_fd, struct sockaddr * server_addr) {
     int sockfd;
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+    if ((sockfd = socket_create_udp(8888)) < 0) {
         perror("socket");
         return -1;
     }
+    DBG(GREEN"INFO"NONE" : Before connect.\n");
     if (connect(sockfd, (struct sockaddr *) &server_addr, sizeof(struct sockaddr))) {
         perror("connect");
         return -1;
     }
+    DBG(GREEN"INFO"NONE" : After connect.\n");
+    int ret = send(sockfd, "Login!", sizeof("Login!"), 0);
+    DBG(RED"RET = %d\n"NONE, ret);
     add_event(epoll_fd, sockfd, EPOLLIN);
     return sockfd;
 }
