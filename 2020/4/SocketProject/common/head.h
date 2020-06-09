@@ -26,4 +26,11 @@
 #include <sys/select.h>
 #include <sys/epoll.h>
 #include <errno.h>
+#include "./udp_epoll.h"
+#include "./udp_server.h"
+#include "./udp_client.h"
+#include "./color.h"
+#include "./common.h"
+//#include "./datatype.h"
+#include "./thread_pool.h"
 #endif

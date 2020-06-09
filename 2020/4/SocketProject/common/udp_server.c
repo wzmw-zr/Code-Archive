@@ -16,6 +16,8 @@ int socket_create_udp(int port) {
     server.sin_port = htons(port);
     server.sin_addr.s_addr = INADDR_ANY;
 
+    make_nonblock(server_listen);
+
     if (bind(server_listen, (struct sockaddr *)&server, sizeof(server)) < 0) {
         return -1;
     }
