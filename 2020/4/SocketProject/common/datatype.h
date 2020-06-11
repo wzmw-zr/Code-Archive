@@ -36,7 +36,7 @@ struct User{
 
 struct Map {
     int width;
-    int heigth;
+    int height;
     struct Point start;
     int gate_width;
     int gate_heigth;

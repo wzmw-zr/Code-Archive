@@ -5,6 +5,9 @@
 	> Created Time: 2020年06月04日 星期四 19时07分50秒
  ************************************************************************/
 #include "./head.h"
+#include "./udp_epoll.h"
+#include "./udp_server.h"
+#include "./datatype.h"
 #define MAX 50
 
 extern int port;
@@ -27,7 +30,7 @@ void add_event(int epollfd, int fd, int events, struct User *user){
     ev.events = events;
     ev.data.ptr = (void *) user;
     epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
-    DBG(GREEN"Sub_Thread"NONE" : After Epoll Add %s.\n", user->name);
+    DBG(GREEN"Sub Thread"NONE" : After Epoll Add %s.\n", user->name);
 }
 
 void del_event(int epollfd, int fd, int events) {
@@ -85,7 +88,7 @@ int udp_accept(int epollfd, int fd, struct User *user) {
     user->team = request.team;
 
     new_fd = udp_connect(epollfd, &client);
-    user->fd = fd;
+    user->fd = new_fd;
     return new_fd;
 }
 

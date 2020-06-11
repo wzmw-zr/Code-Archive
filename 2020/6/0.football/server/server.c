@@ -5,7 +5,11 @@
 	> Created Time: 2020年06月02日 星期二 18时12分38秒
  ************************************************************************/
 #include "../common/head.h"
+#include "../common/udp_epoll.h"
+#include "../common/udp_server.h"
+#include "../common/thread_pool.h"
 #include "../game.h"
+#define MAX 50
 
 char *conf = "./server.conf";
 
@@ -89,9 +93,9 @@ int main(int argc, char **argv) {
     while (1) {
         //w_gotoxy_puts(Message, 1, 1, "Waiting for login");
         //wrefresh(Message);
-        DBG(YELLOW"EPOLL"NONE" :  before epoll_wait\n");
+        DBG(YELLOW"Main Thread"NONE" :  before epoll_wait\n");
         int nfds = epoll_wait(epoll_fd, events, MAX * 2, -1);
-        DBG(YELLOW"EPOLL"NONE" :  After epoll_wait\n");
+        DBG(YELLOW"Main Thread"NONE" :  After epoll_wait\n");
 
         for (int i = 0; i < nfds; i++) {
             struct User user;
@@ -99,9 +103,9 @@ int main(int argc, char **argv) {
             DBG(YELLOW"EPOLL"NONE" :  Doing with %dth fd\n", i);
             if (events[i].data.fd == listener) {
                 //accept();
-                int new_fd = udp_accept(epoll_fd, listener, &user);
+                int new_fd = udp_accept(epoll_fd, listener, (void *) &user);
                 if (new_fd > 0) {
-                    DBG(YELLOW"EPOLL"NONE" : Add %s to %s \n sub_reactor", user.name, (user->team ? "BLUE" : "RED"));
+                    DBG(YELLOW"EPOLL"NONE" : Add %s to %s \n sub_reactor", user.name, (user.team ? "BLUE" : "RED"));
                     //add_to_sub_reactor(&user, )
                 }
             } else {

@@ -13,4 +13,5 @@ void add_event(int epool_fd, int fd, int events, struct User *user);
 void del_event(int epool_fd, int fd, int events);
 //int udp_connect(int epoll_fd, struct sockaddr *server_addr);
 int udp_accept(int epoll_fd, int fd, struct User *user);
+void add_to_sub_reactor(struct User *user);
 #endif

@@ -6,7 +6,10 @@
  ************************************************************************/
 
 
-#include "head.h"
+#include "./head.h"
+#include "./datatype.h"
+#include "./sub_reactor.h"
+#include "./thread_pool.h"
 #define MAX 50
 
 void *sub_reactor(void *arg) {

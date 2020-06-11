@@ -8,6 +8,8 @@
 #include "../common/color.h"
 #include "../common/common.h"
 #include "../common/tcp_server.h"
+#include "../common/thread_pool.h"
+#include "../common/sub_reactor.h"
 #include "../common/head.h"
 
 #define CLIENTSIZE 50

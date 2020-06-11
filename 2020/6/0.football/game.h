@@ -15,19 +15,23 @@ struct LogData {
     int team; // 0 RED 1 BLUE
 };
 
+/*
 struct Point {
     int x;
     int y;
 };
+*/
 
-struct User {
+/*struct User {
     int team;
     char name[20];
     int flag; // no response times 
     struct sockaddr_in addr;
     struct Point loc;
 };
+*/
 
+/*
 struct Map {
     int width;
     int height;
@@ -35,18 +39,22 @@ struct Map {
     int gate_width;
     int gate_height;
 };
+*/
 
-
+/*
 struct Ctrl {
     int carry;
     int kick;
 };
+*/
 
+/*
 struct TransMsg {
     int dirx;
     int diry;
     struct Ctrl ctrl;
 };
+*/
 
 struct Map court;
 

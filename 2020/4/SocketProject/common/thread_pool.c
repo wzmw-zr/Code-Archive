@@ -5,7 +5,8 @@
 	> Created Time: 2020年06月09日 星期二 18时14分47秒
  ************************************************************************/
 
-#include "./thread_pool.h"
+#include "thread_pool.h"
+#include "./datatype.h"
 
 void do_echo(struct User *user) {
     struct FootBallMsg msg;
@@ -41,6 +42,7 @@ void task_queue_push(struct task_queue *taskQueue, struct User *user) {
         DBG(L_GREEN"Thread pool : "NONE" Task Queue End.\n");
         taskQueue->tail = 0;
     }
+    pthread_cond_signal(&taskQueue->cond);
     pthread_mutex_unlock(&taskQueue->mutex);
 }
 
