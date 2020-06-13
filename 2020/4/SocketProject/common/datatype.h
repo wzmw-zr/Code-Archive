@@ -58,10 +58,13 @@ struct TransMsg{
 #define FT_WALL 0x02
 #define FT_MSG  0x04
 #define FT_ACK  0x08
+#define FT_FIN  0x10
 
 struct FootBallMsg {
     int type;
     int size;
+    int team;
+    char name[20];
     char msg[MAX_MSG];
 };
 #endif

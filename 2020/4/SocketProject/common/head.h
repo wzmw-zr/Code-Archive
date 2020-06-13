@@ -30,4 +30,5 @@
 #include "./common.h"
 #include "./global.h"
 #include "./datatype.h"
+#include <curses.h>
 #endif

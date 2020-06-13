@@ -33,11 +33,10 @@ void add_event(int epollfd, int fd, int events, struct User *user){
     DBG(GREEN"Sub Thread"NONE" : After Epoll Add %s.\n", user->name);
 }
 
-void del_event(int epollfd, int fd, int events) {
-    struct epoll_event ev;
-    ev.data.fd = fd;
-    ev.events = events;
-    epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, &ev);
+void del_event(int epollfd, int fd) {
+    //struct epoll_event ev;
+    //ev.data.fd = fd;
+    epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, NULL);
 }
 
 int udp_connect(int epollfd, struct sockaddr_in *serveraddr) {
@@ -58,6 +57,15 @@ int udp_connect(int epollfd, struct sockaddr_in *serveraddr) {
     return sockfd;
 }
 
+int check_online(struct LogRequest *request) {
+    struct User *team = (request->team ? bteam : rteam);
+    for (int i = 0; i < MAX; i++) {
+        if (team[i].online && !strcmp(team[i].name, request->name)) 
+            return 1;
+    }
+    return 0;
+}
+
 int udp_accept(int epollfd, int fd, struct User *user) {
     struct sockaddr_in client;
     int new_fd, ret;
@@ -71,9 +79,15 @@ int udp_accept(int epollfd, int fd, struct User *user) {
     ret = recvfrom(fd, (void *)&request, sizeof(request), 0, (struct sockaddr *)&client, &len);
     if (ret != sizeof(request)) {
         response.type = 1;
-        strcpy(response.msg, "Login failed.");
+        strcpy(response.msg, "Login failed with NetWork errors!");
         sendto(fd, (void *)&response, sizeof(response), 0, (struct sockaddr *)&client, len);
         return -1;
+    }
+    if (check_online(&request)) {
+        response.type = 1;
+        strcpy(response.msg, "You are already playing this game somewhere");
+        sendto(fd, (void *)&response, sizeof(response), 0, (struct sockaddr *)&client, len);
+        return -1; 
     }
     response.type = 0;
     strcpy(response.msg, "Login success. Enjoy yourself.");
