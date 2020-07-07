@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+# coding=utf-8
+
+"""
+This is a testing case of python.
+"""
+
+a = "Hello World"
+print("Hello World") # This is a sentence to print a phrase
+print(id(a))
+print(id("Hello World"))
+
+sum = 0
+for i in range(0, 101):
+    sum += i
+
+print(sum)
+
+sum = 123
+print(id(sum))
+print(id(123))
+
+print(a + str(sum))
