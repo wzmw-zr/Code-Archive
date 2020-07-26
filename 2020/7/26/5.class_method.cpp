@@ -18,6 +18,7 @@ public:
     Point() {
         cout << "constructor : " << this << endl;
         Point::total_cnt += 1;
+        this->seek_cnt = 0;
     }
 
     Point(const Point &b) : Point() {
@@ -50,8 +51,18 @@ public:
 
     static int T() { return Point::total_cnt; }
 
+    void set(int x, int y) {
+        this->x = x, this->y = y;
+    }
+
+    void seek() const {
+        this->seek_cnt += 1;
+        cout << this->x << " " << this->y << endl;
+    }
+
 private:
     int x, y;
+    mutable int seek_cnt;
     static int total_cnt;
 };
 
@@ -79,5 +90,9 @@ int main() {
     cout << &b << endl;
     cout << &c << endl;
     cout << &d << endl;
+    d.seek();
+    c.seek();
+    const Point e(5, 6);
+    e.seek();
     return 0;
 }
