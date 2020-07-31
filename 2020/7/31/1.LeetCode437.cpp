@@ -40,9 +40,12 @@ void handle(vector<TreeNode *> &node, set<PPP> &st, int sum) {
 }
 
 void countPath(vector<TreeNode *> &node, set<PPP> &st, TreeNode *root, int sum) {
-    if (!root) {
+    if (!root) return ;
+    if (root->left == NULL && root->right == NULL) {
+        node.push_back(root);
         handle(node, st, sum);
-        return ;
+        node.pop_back();
+        return ; 
     }
     node.push_back(root);
     countPath(node, st, root->left, sum);
