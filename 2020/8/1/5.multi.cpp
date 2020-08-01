@@ -51,9 +51,40 @@ class B : public A {
 
 };
 
+class Base {
+public:
+    Base() { 
+        cout << "Base constructor" << endl;
+        this->x = new int; 
+    }
+    virtual ~Base() { 
+        cout << "Base destructor" << endl;
+        delete this->x; 
+    }
+
+private:
+    int *x;
+};
+
+class Base_A : public Base {
+public:
+    Base_A() {
+        cout << "Base_A constructor" << endl;
+        this->y = new int;
+    }
+    ~Base_A() {
+        cout << "Base_A destructor" << endl;
+        delete this->y;
+    }
+private:
+    int *y;
+};
+
 typedef void (*func)(A *, int);
 
 int main() {
+    Base *ba = new Base_A();
+    delete ba;
     cout << sizeof(A) << endl;
     A temp_a;
     ((func **)(&temp_a))[0][0](&temp_a, 9973);
