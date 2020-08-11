@@ -87,35 +87,115 @@ namespace haizei {
         printAny(args...);
     };
 
-    template<typename T, typename ...ARGS> class ARG;
-    template<typename T, typename ...ARGS>
+    template<int val, typename T, typename ...ARGS> class ARG;
+    template<int val, typename T, typename ...ARGS>
     class ARG {
     public:
+        typedef typename ARG<val - 1, ARGS...>::__type __type;
+    };
+
+    template<typename T, typename ...ARGS>
+    class ARG<0, T, ARGS...> {
+    public:
         typedef T __type;
-        typedef ARG<ARGS...> __rest;
     };
 
     template<typename T>
-    class ARG<T>{
+    class ARG<0, T> {
     public:
         typedef T __type;
     };
+
+
+    template<typename T>
+    T sum(T a) {
+        return a;
+    }
+
+    template<typename T, typename ...ARGS>
+    T sum(T a, ARGS... args) {
+        return a + sum(args...);
+    }
 
     template<typename T, typename ...ARGS> class Test;
     template<typename T, typename ...ARGS> 
     class Test<T(ARGS...)> {
     public:
-        T operator()(
-            typename ARG<ARGS...>::__type a,
-            typename ARG<ARGS...>::__rest::__type b
-        ) {
-                return a + b;
+        T operator()(ARGS... args) {
+            return add<T, ARGS...>(args...);
+        }
+
+    private:
+        template<typename T1, typename U, typename ... US>
+        T1 add(U a, US ...args) {
+            return a + add<T1>(args...);
+        }
+        template<typename T1, typename U>
+        T1 add(U a) {
+            return a;
         }
     };
 
+    template<typename T, typename U>
+    T test_param_func(U a) {
+        return a * 2;
+    }
+
+    void func2(int (*func)(double)) {
+        cout << func(2.3) << endl;
+    }
+
+    template<typename T> struct remove_reference { typedef T type; };
+
+    template<typename T> struct remove_reference<T &> { typedef T type; };
+
+    template<typename T> struct remove_reference<T &&> { typedef T type; };
+
+    template<typename T>
+    typename remove_reference<T>::type add2(T &&a, T &&b) {
+        return a + b;
+    };
+
+    template<typename T> struct add_const { typedef const T type; };
+    template<typename T> struct add_const<const T> { typedef const T type; };
+
+
+    template<typename T> struct add_lvalue_reference { typedef T &type; };
+    template<typename T> struct add_lvalue_reference<T &> { typedef T &type; };
+    template<typename T> struct add_lvalue_reference<T &&> { typedef T &type; };
+
+
+    template<typename T> struct add_rvalue_reference { typedef T &&type; };
+    template<typename T> struct add_rvalue_reference<T &> { typedef T &&type; };
+    template<typename T> struct add_rvalue_reference<T &&> { typedef T &&type; };
+
+
+    template<typename T> struct remove_pointer { typedef T type; };
+    template<typename T> struct remove_pointer<T *> { typedef typename remove_pointer<T>::type type; };
+
+    template<typename T>
+    typename add_rvalue_reference<T>::type move(T &&a) {
+        return typename add_rvalue_reference<T>::type(a);
+    }
 }
 
+void f(int &x) {
+    cout << "f function: left reference" << endl;
+}
+
+void f(int &&x) {
+    cout << "f function: right reference" << endl;
+}
+
+
 int main() {
+    int a = 123, b = 456;
+    f(a);
+    f(move(a));
+    cout << haizei::add2(a, b) << endl;
+    cout << haizei::add2(haizei::move(a), haizei::move(b)) << endl;
+    cout << haizei::add2(123, 456) << endl;
+    haizei::func2(haizei::test_param_func);
     haizei::FoolPrintAny<string> f1;
     f1(string("hello world"));
     haizei::FoolPrintAny<int> f2;
@@ -126,6 +206,9 @@ int main() {
     haizei::printAny(123, 34.5, "hello world");
     haizei::Test<int(int, int)> f3;
     cout << f3(10, 23) << endl;
+
+    haizei::Test<int(int, int, int, int)> calculate;
+    cout << calculate(100, 10000, 100000, 10) << endl;
     #if 0
     A a(1000);
     B b(500);

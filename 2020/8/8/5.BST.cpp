@@ -31,28 +31,32 @@ public:
 
     friend int main();
     friend TreeNode<ValueType>::TreeNode();
-    static NodeType *__root;
-    static NodeType __NIL, *NIL;
+    NodeType *__root;
+    static NodeType __NIL;
+    NodeType *NIL;
 };
 
 
 template<typename ValueType>
 TreeNode<ValueType>::TreeNode() 
-: left(Tree<ValueType>::NIL)
-, right(Tree<ValueType>::NIL) {}
+: left(this)
+, right(this) {}
 
 template<typename ValueType>
 TreeNode<ValueType>::TreeNode(ValueType val)
 : val(val)
-, left(Tree<ValueType>::NIL)
-, right(Tree<ValueType>::NIL) {}
+, left(&Tree<ValueType>::__NIL)
+, right(&Tree<ValueType>::__NIL) {}
 
 template<typename ValueType>
-Tree<ValueType>::Tree() {}
+Tree<ValueType>::Tree() {
+    __root = &__NIL;
+    NIL = &__NIL;
+}
 
 template<typename ValueType>
 typename Tree<ValueType>::NodeType *Tree<ValueType>::insert_node(NodeType *root, ValueType val) {
-    if (root == this->NIL) return new NodeType(val);
+    if (root == NIL) return new NodeType(val);
     if (root->val == val) return root;
     if (root->val < val) 
         root->right = insert_node(root->right, val);
@@ -64,7 +68,7 @@ typename Tree<ValueType>::NodeType *Tree<ValueType>::insert_node(NodeType *root,
 template<typename ValueType>
 typename Tree<ValueType>::NodeType *Tree<ValueType>:: predecesser(typename Tree<ValueType>::NodeType *root) {
     NodeType *temp = root->left;
-    while (temp->right != this->NIL) {
+    while (temp->right != NIL) {
         temp = temp->right;
     }
     return temp;
@@ -72,14 +76,14 @@ typename Tree<ValueType>::NodeType *Tree<ValueType>:: predecesser(typename Tree<
 
 template<typename ValueType>
 typename Tree<ValueType>::NodeType *Tree<ValueType>::erase_node(typename Tree<ValueType>::NodeType *root, ValueType val) {
-    if (root == this->NIL) return root;
+    if (root == NIL) return root;
     if (root->val < val) {
         root->right = erase_node(root->right, val);
     } else if (root->val > val) {
         root->left = erase_node(root->left, val);
     } else {
-        if ((root->left == this->NIL) || (root->right == this->NIL)) {
-            NodeType *temp = (root->left == this->NIL) ? root->right : root->left;
+        if ((root->left == NIL) || (root->right == NIL)) {
+            NodeType *temp = (root->left == NIL) ? root->right : root->left;
             delete root;
             return temp;
         }
@@ -92,20 +96,19 @@ typename Tree<ValueType>::NodeType *Tree<ValueType>::erase_node(typename Tree<Va
 
 template<typename ValueType>
 void Tree<ValueType>::show(typename Tree<ValueType>::NodeType *root) {
-    if (root == this->NIL) return ;
+    if (root == NIL) return ;
     show(root->left);
     cout << root->val << " ";
     show(root->right);
 }
 
 template<typename ValueType>
-typename Tree<ValueType>::NodeType __NIL = new TreeNode<ValueType>();
+typename Tree<ValueType>::NodeType Tree<ValueType>::__NIL;
 
-template<typename ValueType>
-typename Tree<ValueType>::NodeType *__root = &Tree<ValueType>::__NIL;
-
+#if 0
 template<typename ValueType>
 typename Tree<ValueType>::NodeType *NIL = &Tree<ValueType>::__NIL;
+#endif
 
 int main() {
     Tree<int> tree;
