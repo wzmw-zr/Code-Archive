@@ -33,6 +33,7 @@ Object* createObj()
     if (unused == nullptr) return nullptr;
     Position *ret = unused;
     //cout << ret << " " << ret->next << endl;
+    ret->used = true;
     unused = unused->next;
     return (Object *) ret;
 }
@@ -47,9 +48,10 @@ bool destroyObj(Object* obj)
         //cout << "invalid_address" << endl;
         return false;
     }
-    temp->used = false;
-    temp->next = unused;
-    unused = temp;
+    if (temp->used == false) {
+        temp->next = unused; 
+        unused = temp;
+    } else temp->used = false;
     return false;
 }
 shared_ptr<Object> Object::getObj()
@@ -69,9 +71,11 @@ void bufferInit()
 		}
 	}
 	buffer[CAP_NUM - 1].next = NULL;
+    #if 0
     for (int i = 0; i < CAP_NUM; i++) {
         cout << buffer + i << " " << buffer[i].next << endl;
     }
+    #endif
 }
 void assert_obj(Object* obj)
 {
@@ -121,11 +125,14 @@ int main()
 				cout << p->str_object << endl;
 			}
 			vec_obj.push_back(p);
-            cout << vec_obj.size() << endl;
+            //cout << vec_obj.size() << endl;
 		}
+        for (auto &x : vec_obj) {
+            cout << x->str_object << endl;
+        }
 		auto p_blank = Object::getObj();
         //cout << p_blank << endl;
-		//assert(p_blank == nullptr);
+		assert(p_blank == nullptr);
 
 	}
 	cout << "all tests done!" << endl;

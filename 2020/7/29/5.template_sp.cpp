@@ -21,7 +21,7 @@ T add(T a, T b) {
 }
 
 template<>
-int add(int a, int b) {
+int add<int>(int a, int b) {
     cout << "specific template add function" << endl;
     return a + b;
 }
