@@ -27,8 +27,9 @@ bool Sunday(string pattern, string text) {
         int j = 0, k = i;
         for (; (j < pattern.size()) && (k < text.size()) ; j++, k++) {
             if (text[k] == pattern[j]) continue;
+            break;
         }
-        if ((j == pattern.size()) && (pattern[j - 1] == text[k - 1])) return true;
+        if (j == pattern.size()) return true;
         if (mp.find(text[i + pattern.size()]) != mp.end()) i += mp[text[i + pattern.size()]] + 1;
         else i += pattern.size() + 1;
     }
