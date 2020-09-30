@@ -15,7 +15,7 @@
 #include<algorithm>
 using namespace std;
 
-#define MAX_N 10010
+#define MAX_N 100010
 
 struct State {
     int len, link;
