@@ -19,7 +19,12 @@ vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInter
     vector<vector<int>> ans;
     if (intervals.size() == 0 || intervals[0][0] > newInterval[1]) ans.push_back(newInterval); 
     for (int i = 0; i < intervals.size(); ) {
-        if (intervals[i][1] < newInterval[0] || intervals[i][0] > newInterval[1]) ans.push_back(intervals[i++]);
+        if (intervals[i][0] > newInterval[1]) {
+            ans.push_back(newInterval);
+            for (; i < intervals.size(); i++)
+                ans.push_back(intervals[i]);
+        } else if (intervals[i][1] < newInterval[0]) 
+            ans.push_back(intervals[i++]);
         else {
             int left = min(intervals[i][0], newInterval[0]), right = max(newInterval[1], intervals[i][1]);
             while (i < intervals.size() && intervals[i][0] <= newInterval[1]) {
