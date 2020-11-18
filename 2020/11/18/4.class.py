@@ -5,6 +5,7 @@ class People(object):
         self.name = name
         self.age = age
         self.sex = sex
+        self.__private = 1000
 
     def Print_Information(self) -> None:
         print(self.name, self.age, self.sex)
@@ -28,6 +29,8 @@ class Student(People):
 
 people = People("Xiao Hong", 30, "female")
 people.Print_Information()
+print(people.name)
+print(people.__private)
 
-student = Student("Xiao ming", 20, "male", "2020069001")
-student.Print_Information()
+#student = Student("Xiao ming", 20, "male", "2020069001")
+#student.Print_Information()
