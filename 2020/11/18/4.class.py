@@ -23,14 +23,18 @@ class Student(People):
         super(Student, self).Print_Information()
         print(self.name, self.age, self.sex, self.stu_id)
 
+    def __call__(self) -> None:
+        print("I am a student")
+
     def __del__(self) -> None:
         super(Student, self).__del__()
         print("Student")
 
-people = People("Xiao Hong", 30, "female")
-people.Print_Information()
-print(people.name)
-print(people.__private)
+#people = People("Xiao Hong", 30, "female")
+#people.Print_Information()
+#print(people.name)
+#print(people.__private)
 
-#student = Student("Xiao ming", 20, "male", "2020069001")
-#student.Print_Information()
+student = Student("Xiao ming", 20, "male", "2020069001")
+student.Print_Information()
+student()
