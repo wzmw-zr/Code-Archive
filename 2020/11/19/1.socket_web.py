@@ -16,13 +16,14 @@ routers = {
 
 def run():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
-    server.bind(('127.0.0.1', 8080))
+    server.bind(('127.0.0.1', 8090))
     server.listen(10)
     while True:
         client, address = server.accept()
-        #print(client)
-        #print(address)
+        print(client)
+        print(address)
         data = client.recv(8096)
+        print(data)
         data = str(data, encoding="utf-8")
         headers, bodys = data.split("\r\n\r\n")
         temp_list = headers.split("\r\n")
