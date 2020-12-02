@@ -14,10 +14,10 @@
 #include<algorithm>
 using namespace std;
 
-int singleNonDuplicate(vector<int>& nums) {
-    int l = 0, r = nums.size() - 1;
+long singleNonDuplicate(vector<long>& nums) {
+    long l = 0, r = nums.size() - 1;
     while (l < r) {
-        int mid = (l + r) >> 1;
+        long mid = (l + r) >> 1;
         if (mid + 1 <= r) {
             if (nums[mid] == nums[mid + 1]) {
                 if (mid & 1) r = mid - 1;
@@ -38,8 +38,8 @@ int singleNonDuplicate(vector<int>& nums) {
 }
 
 int main() {
-    int n;
-    vector<int> nums;
+    long n;
+    vector<long> nums;
     while (cin >> n) nums.push_back(n);
     cout << singleNonDuplicate(nums) << endl;
     return 0;
