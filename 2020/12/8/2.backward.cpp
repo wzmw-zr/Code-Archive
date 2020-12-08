@@ -20,7 +20,6 @@ using namespace std;
 
 struct Op {
     virtual double grad() = 0;
-    virtual ~Op() = 0;
 };
 
 struct Pow : public Op {
@@ -36,7 +35,7 @@ struct Pow : public Op {
 };
 
 struct Exp : public Op {
-    double power;;
+    double power;
     Exp() = default;
     Exp(double power) : power(power) {}
 
@@ -67,12 +66,19 @@ struct Mul : public Op {
     }
 };
 
+struct Single : public Op {
+    double grad() override {
+        return 1;
+    }
+};
+
 struct Node {
     double val;
     double grad;
     Op *op;
     vector<Node *> forward;
     vector<Node *> backward;
+    Node(double val) : val(val), grad(0.0), op(nullptr) {}
     Node(double val, Op *op) : val(val), grad(0.0), op(op) {} 
 };
 
@@ -84,7 +90,7 @@ Node *my_pow(Node *pre, double power) {
     return next;
 }
 
-Node *my_exp(Node *pre, double power) {
+Node *my_exp(Node *pre) {
     Op *op = new Exp(pre->val);
     Node *next = new Node(exp(pre->val), op);
     pre->forward.push_back(next);
@@ -110,6 +116,45 @@ Node *my_mul(Node *pre, double times) {
     return next;
 }
 
+void dfs(Node *node, unordered_map<Node *, int> &mp) {
+    if (!node) return ;
+    mp[node] = node->forward.size();
+    for (Node *x : node->backward) {
+        if (mp.count(x)) continue;
+        dfs(x, mp);
+    }
+}
+
+void backward(Node *node) {
+    queue<Node *> que;
+    que.push(node);
+    unordered_map<Node *, int> mp;
+    dfs(node, mp);
+    //for (auto &x : mp) cout << x.first->val << " " << x.second << endl;
+    //cout << endl;
+    node->grad = node->op->grad();
+    while (!que.empty()) {
+        Node *temp = que.front();
+        //cout << temp->grad << endl;
+        que.pop();
+        for (Node *x : temp->backward) {
+            x->grad += x->op->grad() * temp->grad;
+            if (!(--mp[x])) que.push(x);
+            //cout << x->val << " " << mp[x] << endl;
+        }
+    }
+}
+
 int main() {
+    Node *x = new Node(1, new Single());
+    Node *y = my_pow(x, 2);
+    Node *z = my_mul(x, 3);
+    Node *a = my_add(y, z);
+    Node *b = my_exp(a);
+    Node *c = my_add(b, z);
+    //cout << x << " " << y->backward[0] << endl;
+    //cout << x->val << " " << y->val << " " << z->val << " " << a->val << " " << b->val << " " << c->val << endl;
+    backward(c);
+    cout << x->grad << endl;
     return 0;
 }
