@@ -36,12 +36,13 @@ public:
                     min_top_heap.push(min_max);
                 }
             }
+            return ;
         }
 
         if (max_top_heap.size() == min_top_heap.size()) {
             int max_min = min_top_heap.top();
             int min_max = max_top_heap.top();
-            if (num <= min_max) max_top_heap.push(num);
+            if (num <= max_min) max_top_heap.push(num);
             else {
                 min_top_heap.pop();
                 min_top_heap.push(num);
