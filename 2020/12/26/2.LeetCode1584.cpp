@@ -62,15 +62,17 @@ struct UnionSet {
 
 int minCostConnectPoints(vector<vector<int>>& points) {
     vector<Node> nodes;
+    vector<string> nodes_str;
     int ind = 0, n = points.size();
     unordered_map<string, int> mp;
     for (auto x : points) nodes.push_back(Node(x[0], x[1]));
-    for (Node &x : nodes) mp[x.to_str()] = ++ind;
+    for (Node &x : nodes) nodes_str.push_back(x.to_str());
+    for (string &x : nodes_str) mp[x] = ++ind;
     UnionSet u(n);
     priority_queue<Distance> que;
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
-            que.push(Distance(nodes[i].to_str(), nodes[j].to_str(), nodes[i] - nodes[j]));
+            que.push(Distance(nodes_str[i], nodes_str[j], nodes[i] - nodes[j]));
         }
     }
     int ans = 0;
