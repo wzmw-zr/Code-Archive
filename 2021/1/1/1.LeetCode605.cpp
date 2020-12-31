@@ -18,6 +18,7 @@
 using namespace std;
 
 bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+    if (!n) return true;
     int len = flowerbed.size();
     int cnt = 0;
     if (len == 1) {
