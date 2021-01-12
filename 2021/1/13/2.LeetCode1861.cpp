@@ -23,37 +23,31 @@ vector<int> findClosedNumbers(int num) {
         if (num & (1 << i)) ones.push_back(i);
         else zeros.push_back(i);
     }
+    if (zeros.size() == 0) return vector<int>({-1, -1});
+
     int len_1 = ones.size(), len_2 = zeros.size();
     int near_max = num, near_min = num;
     int flag = 0;
 
-    if (len_2 == 0) near_max = -1;
-    else {
-        for (int i = 1; i < len_2; i++) {
-            //cout << i << " " << zeros[i] << " " << zeros[i - 1] << endl;
-            if (zeros[i] == (zeros[i - 1] + 1)) continue;
-            flag = 1;
-            for (int j = 0; j <= zeros[i]; j++) {
-               // cout << "(1 << " << j << ") = " << (1 << j) << endl;
-                near_max |= (1 << j);
-            }
-            //cout << near_max << endl;
-            for (int j = 1; j <= (i + 1); j++) near_max &= ~(1 << (zeros[i] - j));
-            break;
-        }
-        if (flag == 0) near_max = -1;
+    for (int i = 0; i < len_2; i++) {
+        if (zeros[i] < ones[0]) continue;
+        flag = 1;
+        for (int j = 0; j <= zeros[i]; j++) near_max |= (1 << j);
+        for (int j = 1; j <= (i + 1); j++) near_max &= ~(1 << (zeros[i] - j));
+        break;
     }
-    //cout << "near_max = " << near_max << endl;
+    if (flag == 0)  near_max = -1;
+
     flag = 0;
-    int pre = ones[0];
-    for (int i = 1; i < len_1; i++) {
-        if (ones[i] == (ones[i - 1] + 1)) continue;
+    for (int i = 0; i < len_1; i++) {
+        if (ones[i] < zeros[0]) continue;
         flag = 1;
         for (int j = 0; j <= ones[i]; j++) near_min &= ~(1 << j);
-        for (int j = 0; j <= i; j++) near_min |= (1 << j);
+        for (int j = 1; j <= (i + 1); j++) near_min |= (1 << (ones[i] - j));
         break;
     }
     if (flag == 0) near_min = -1;
+
     return vector<int>({near_max, near_min});
 }
 
