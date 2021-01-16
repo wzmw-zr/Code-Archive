@@ -57,10 +57,15 @@ bool is_valid(vector<vector<bool>> &check, vector<PII> &item, int &x, int &y) {
     return true;
 }
 
-int dfs(int x, int y, vector<vector<bool>> &check, int &m, int &n, int step) {
+int dfs(int x, int y, vector<vector<bool>> &check, int &m, int &n, int step, vector<PII> &path) {
     if (x < 0 || x >= 3 || y < 0 || y >= 3 || check[x][y] || step > n) return 0;
     int ans = 0;
-    if (step >= m && step <= n) ans++;
+    path.push_back(PII(x, y));
+    if (step >= m && step <= n) {
+        ans++;
+        for (auto &&[s, t]: path) cout << "[" << s << " " << t << "], ";
+        cout << endl;
+    }
     check[x][y] = true;;
     for (auto &item : direction) {
         auto [r, c] = item[0];
@@ -68,9 +73,10 @@ int dfs(int x, int y, vector<vector<bool>> &check, int &m, int &n, int step) {
         int y_t = y + c;
         if (x_t < 0 || x_t >= 3 || y_t < 0 || y_t >= 3 || check[x_t][y_t] || step == n) continue;
         if (!is_valid(check, item, x, y)) continue;
-        ans += dfs(x_t, y_t, check, m, n, step + 1);
+        ans += dfs(x_t, y_t, check, m, n, step + 1, path);
     }
     check[x][y] = false;
+    path.pop_back();
     return ans;
 }
 
@@ -78,8 +84,9 @@ int numberOfPatterns(int m, int n) {
     init();
     int ans = 0;
     vector<vector<bool>> check(3, vector<bool>(3, false));
+    vector<PII> path;
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) ans += dfs(i, j, check, m, n, 1);
+        for (int j = 0; j < 3; j++) ans += dfs(i, j, check, m, n, 1, path);
     }
     return ans;
 }
