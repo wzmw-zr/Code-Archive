@@ -15,9 +15,10 @@
 #include<unordered_map>
 #include<unordered_set>
 #include<algorithm>
+#include<cmath>
 using namespace std;
 
-typedef pair<int, int> PII;
+typedef pair<double, double> PII;
 
 vector<int> bestCoordinate(vector<vector<int>>& towers, int radius) {
     unordered_map<string, int> mp;
@@ -29,9 +30,9 @@ vector<int> bestCoordinate(vector<vector<int>>& towers, int radius) {
             mp[name] = 0;
             hash[name] = node;
             for (auto &x : towers) {
-                int dis = abs(x[0] - i) + abs(x[1] - j);
+                double dis = sqrt((i - x[0]) * (i - x[0]) + (j - x[1]) * (j - x[1]));
                 if (dis > radius) continue;
-                mp[name] += x[2] / (1 + dis);
+                mp[name] += (int) (x[2] / (1 + dis));
             }
         }
     }
@@ -46,7 +47,7 @@ vector<int> bestCoordinate(vector<vector<int>>& towers, int radius) {
         }
         ans = min(ans, hash[s]);
     }
-    return vector<int>({ans.first, ans.second});
+    return vector<int>({(int) ans.first, (int) ans.second});
 }
 
 int main() {
