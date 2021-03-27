@@ -47,7 +47,7 @@ public:
     }
 
     bool hasNext() {
-        return ind < (int) nums.size() - 1;
+        return ind < (int) nums.size();
     }
 };
 
