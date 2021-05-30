@@ -40,9 +40,9 @@ vector<int> assignTasks(vector<int>& servers, vector<int>& tasks) {
     for (int i = 0; i < m; i++) task_que.push(i);
     int i = 0;
     while (1) {
-        if (mp.count(i)) {
-            for (int x : mp[i]) server_que.push(Server(x, servers[x]));
-            mp.erase(i);
+        while (!mp.empty() && (*mp.begin()).first <= i) {
+            for (int x : (*mp.begin()).second) server_que.push(Server(x, servers[x]));
+            mp.erase(mp.begin());
         }
         while (!server_que.empty() && !task_que.empty() && task_que.top() <= i) {
             int t_ind = task_que.top();
@@ -54,7 +54,8 @@ vector<int> assignTasks(vector<int>& servers, vector<int>& tasks) {
             if (!mp.count(t)) mp[t] = vector<int>();
             mp[t].push_back(server.ind);
         }
-        i++;
+        if (!server_que.empty()) i = (*mp.begin()).first;
+        else i++;
         if (task_que.empty()) break;
     }
     return ans;
