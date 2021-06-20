@@ -49,6 +49,12 @@ int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
     get_island(grid2, island2);
     for (auto x : island2) {
         int check = 0;
+        for (auto y : x) {
+            if (grid1[y.first][y.second]) continue;
+            check = 1;
+            break;
+        }
+        if (check) continue;
         for (auto y : island1) {
             int flag = 0;
             for (auto z : x) {
