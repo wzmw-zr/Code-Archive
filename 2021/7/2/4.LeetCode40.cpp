@@ -18,28 +18,25 @@
 using namespace std;
 
 
-// TLE
 vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
     sort(candidates.begin(), candidates.end());
     int n = candidates.size();
-    vector<vector<int>> dp[n + 1][target + 1];
-    dp[0][0] = vector<vector<int>>(1, vector<int>(0));
+    set<vector<int>> dp[n + 1][target + 1];
+    dp[0][0].insert(vector<int>(0));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j <= target; j++) {
-            for (auto x : dp[i][j]) dp[i + 1][j].push_back(x);
+            for (auto x : dp[i][j]) dp[i + 1][j].insert(x);
             if (j >= candidates[i]) {
                 for (auto x : dp[i][j - candidates[i]]) {
                     auto temp = x;
                     temp.push_back(candidates[i]);
-                    dp[i + 1][j].push_back(temp);
+                    dp[i + 1][j].insert(temp);
                 }
             }
         }
     }
-    set<vector<int>> st;
-    for (auto x : dp[n][target]) st.insert(x);
     vector<vector<int>> ans;
-    for (auto x : st) ans.push_back(x);
+    for (auto x : dp[n][target]) ans.push_back(x);
     return ans;
 }
 
