@@ -17,7 +17,7 @@
 #include <algorithm>
 using namespace std;
 
-// WA
+// misunderstanding the intend of the question, this method is to check whether the sudoku is solveable.
 void dfs(vector<int> &nums, int ind, int &n, vector<int> &check, vector<int> &path, vector<vector<int>> &ans) {
     if (ind == n) {
         ans.push_back(path);
