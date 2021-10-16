@@ -60,12 +60,15 @@ long cal_expression(string &s) {
 void dfs(string &num, vector<char> &ops, int ind, int &n, int &target, vector<string> &ans) {
     if (ind && ops[ind - 1] == ' ' && num[ind - 1] == '0') return ;
     if (ind == n - 1) {
-        string exp = "";
+        int cnt = 0;
+        for (char c : ops) cnt += c == ' ' ? 0 : 1;
+        string exp(n + cnt, ' ');
+        int x = 0;
         for (int i = 0; i < n - 1; i++) {
-            exp += num[i];
-            if (ops[i] != ' ') exp += ops[i];
+            exp[x++] = num[i];
+            if (ops[i] != ' ') exp[x++] = ops[i];
         }
-        exp += num[n - 1];
+        exp[x++] = num[n - 1];
         if (cal_expression(exp) == target) ans.push_back(exp);
         return ;
     }
