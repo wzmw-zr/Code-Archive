@@ -38,6 +38,7 @@ void DFT(Comp *nums, int n, int mode) {
     for (int k = 0; k < n / 2; k++) {
         tmp[k] = h[k] + w * g[k];
         tmp[k + n / 2] = h[k] - w * g[k];
+        w *= step;
     }
     for (int i = 0; i < n; i++) nums[i] = tmp[i];
 }
