@@ -47,7 +47,7 @@ void fft(Comp *co, int k, int mode) {
 void solve() {
     int n;
     cin >> n;
-    int t = __builtin_popcount(n) == 1 ? n : 1 << (32 - __builtin_popcount(n));
+    int t = __builtin_popcount(n) == 1 ? n : 1 << (32 - __builtin_clz(n));
     Comp *co = new Comp[t];
     for (int i = 0; i < n; i++) cin >> co[i];
     for (int i = 0; i < t; i++) cout << co[i] << " ";
