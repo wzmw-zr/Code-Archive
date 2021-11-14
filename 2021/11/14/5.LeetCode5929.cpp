@@ -53,6 +53,7 @@ struct UnionSet {
 };
 
 vector<bool> friendRequests(int n, vector<vector<int>>& restrictions, vector<vector<int>>& requests) {
+    int wzmw_zr_q4 = 0;
     UnionSet u(n);
     set<PII> st;
     for (auto r : restrictions) {
