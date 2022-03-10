@@ -17,7 +17,6 @@
 #include <algorithm>
 using namespace std;
 
-// WA
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
 
@@ -25,9 +24,8 @@ struct Node {
   vector<int> child;
   int out_degree;
   int size;
-  int score;
 
-  Node() : child(vector<int>(0)), out_degree(0), size(1), score(1) {}
+  Node() : child(vector<int>(0)), out_degree(0), size(1) {}
 };
 
 int countHighestScoreNodes(vector<int>& parents) {
@@ -41,17 +39,24 @@ int countHighestScoreNodes(vector<int>& parents) {
   for (int i = 0; i < n; i++) {
     if (nodes[i].out_degree == 0) que.push(i);
   }
-  map<int, int> mp;
   while (!que.empty()) {
     int t = que.front();
     que.pop();
-    if (nodes[t].child.size() == 0) nodes[t].score = 0;
-    mp[nodes[t].score]++;
     if (parents[t] != -1) {
-      nodes[parents[t]].score *= nodes[t].size;
       nodes[parents[t]].size += nodes[t].size;
       if (!(--nodes[parents[t]].out_degree)) que.push(parents[t]);
     }
+  }
+  map<long, int> mp;
+  for (int i = 0; i < n; i++) {
+    long score = 1;
+    int cnt = 1;
+    for (int x : nodes[i].child) {
+      score *= nodes[x].size;
+      cnt += nodes[x].size;
+    }
+    if (parents[i] != -1) score *= n - cnt;
+    mp[score]++;
   }
   return prev(mp.end())->second;
 }
