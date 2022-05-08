@@ -15,10 +15,14 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
+#include <cstring>
+#include <cstdlib>
 using namespace std;
 
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
+
+int check[110][110][220];
 
 bool dfs(vector<vector<char>> &grid, int x, int y, int diff) {
   int m = grid.size(), n = grid[0].size();
@@ -29,13 +33,23 @@ bool dfs(vector<vector<char>> &grid, int x, int y, int diff) {
     return false;
   }
   if (diff < 0) return false;
-  if (dfs(grid, x + 1, y, diff)) return true;
-  if (dfs(grid, x, y + 1, diff)) return true;
+  if (check[x][y][diff] == -1) return false;
+  if (check[x][y][diff] == 1) return true;
+  if (dfs(grid, x + 1, y, diff)) {
+    check[x][y][diff] = 1;
+    return true;
+  }
+  if (dfs(grid, x, y + 1, diff)) {
+    check[x][y][diff] = 1;
+    return true;
+  }
+  check[x][y][diff] = -1;
   return false;
 }
 
 bool hasValidPath(vector<vector<char>>& grid) {
   int m = grid.size(), n = grid[0].size();
+  memset(check, 0, sizeof(check));
   int diff = 0;
   return dfs(grid, 0, 0, diff);
 }
