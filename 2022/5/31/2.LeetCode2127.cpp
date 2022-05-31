@@ -20,7 +20,6 @@ using namespace std;
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
 
-// WA
 struct Node {
   int ind;
   int next;
@@ -58,14 +57,15 @@ int maximumInvitations(vector<int>& favorite) {
     nodes[nodes[ind].next].height = max(h, nodes[ind].height + 1);
     if (!(--nodes[nodes[ind].next].in_deg)) que.push(nodes[ind].next);
   }
-  int ans = 0;
+  int res1 = 0;
+  int res2 = 0;
   for (int i = 0; i < n; i++) {
     if (!nodes[i].in_deg || nodes[i].visited) continue;
     int len = dfs(nodes, i);
-    if (len >= 3) ans = max(ans, len);
-    else ans = max({ans, nodes[i].height + 1, nodes[nodes[i].next].height + 1});
+    if (len >= 3) res1 = max(res1, len);
+    else res2 += nodes[i].height + nodes[nodes[i].next].height;
   }
-  return ans;
+  return max(res1, res2);
 }
 
 int main() {
