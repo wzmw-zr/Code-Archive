@@ -20,18 +20,17 @@ using namespace std;
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
 
-// WA
 long long countSubarrays(vector<int>& nums, long long k) {
   int n = nums.size();
   vector<long long> pre(n + 1, 0);
   for (int i = 0; i < n; i++) pre[i + 1] = pre[i] + nums[i];
 
-  auto find_last_le = [&](long val) -> int {
+  auto find_last_le = [&](int ind) -> int {
     int n = pre.size();
-    int l = 0, r = n - 1;
+    int l = ind, r = n - 1;
     while (l < r) {
       int mid = (l + r + 1) / 2;
-      if (pre[mid] <= val) l = mid;
+      if ((pre[mid] - pre[ind]) * (mid - ind) <= k) l = mid;
       else r = mid - 1;
     }
     return l;
@@ -39,8 +38,8 @@ long long countSubarrays(vector<int>& nums, long long k) {
 
   long long ans = 0;
   for (int i = 0; i < n; i++) {
-    int ind = find_last_le(pre[i] + k);
-    ans += ind - i;
+    int ind = find_last_le(i);
+    ans += 1L * (ind - i);
   }
   return ans;
 }
