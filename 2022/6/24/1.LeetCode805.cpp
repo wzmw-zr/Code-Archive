@@ -20,28 +20,33 @@ using namespace std;
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
 
-// TLE
-unordered_map<int, bool> mp;
+// WA
+using PII = pair<int, int>;
 
-bool dfs(int state, int sum, int tot, int n, vector<int> &nums) {
-  if (__builtin_popcount(state) > n / 2) return mp[state] = false;
-  if (mp.count(state)) return mp[state];
+map<PII, bool> mp;
+
+bool dfs(int state, int ind, int sum, int tot, int n, vector<int> &nums) {
+  PII embd(state, ind);
+  if (mp.count(embd)) return mp[embd];
   int x = __builtin_popcount(state);
-  if (x && (sum * n == tot * x)) return mp[state] = true;
-  for (int i = 0; i < n; i++) {
-    if (state & (1 << i)) continue;
-    int t_state = state | (1 << i);
-    mp[t_state] = dfs(t_state, sum + nums[i], tot, n, nums);
-    if (mp[t_state]) return mp[state] = true;
-  }
-  return mp[state] = false;
+  if (x && (sum * n == tot * x)) return mp[embd] = true;
+  if (ind == n) return mp[embd] = false;
+  if (x > n / 2) return mp[embd] = false;
+
+  bool res1 = dfs(state, ind + 1, sum, tot, n, nums);
+  if (res1) return mp[embd] = true;
+
+  bool res2 = dfs(state | (1 << ind), ind + 1, sum + nums[ind], tot, n, nums);
+  if (res2) return mp[embd] = true;
+
+  return mp[embd] = false;
 }
 
 bool splitArraySameAverage(vector<int>& nums) {
   int n = nums.size();
   int tot = 0;
   for (int x : nums) tot += x;
-  return dfs(0, 0, tot, n, nums);
+  return dfs(0, 0, 0, tot, n, nums);
 }
 
 int main() {
