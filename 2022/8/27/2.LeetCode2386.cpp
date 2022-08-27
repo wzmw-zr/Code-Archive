@@ -28,7 +28,7 @@ long long kSum(vector<int>& nums, int k) {
   int n = nums.size();
   for (int i = 0; i < n; i++) {
     negative += nums[i] >= 0 ? 0 : nums[i];
-    sum += abs(nums[i]);
+    sum += nums[i];
     nums[i] = abs(nums[i]);
   }
   sort(nums.begin(), nums.end());
@@ -44,7 +44,7 @@ long long kSum(vector<int>& nums, int k) {
     que.push(PLI(val + nums[ind + 1], ind + 1));
     que.push(PLI(val - nums[ind] + nums[ind + 1], ind + 1));
   }
-  long long ans = sum - k_min + negative;
+  long long ans = sum - (k_min + negative);
   return ans;
 }
 
