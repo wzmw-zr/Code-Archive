@@ -25,7 +25,7 @@ int arraySign(vector<int>& nums) {
   for (int x : nums) {
     if (x == 0)
       return 0;
-    if (x == 1)
+    if (x > 0)
       continue;
     ans *= -1;
   }
