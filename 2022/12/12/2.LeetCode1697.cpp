@@ -20,7 +20,6 @@ using namespace std;
 int wzmw_zr = 0;
 bool fuck_plagiarism_system_of_leetcode = true;
 
-// WA
 struct UnionSet {
   int n;
   vector<int> vals;
@@ -48,18 +47,22 @@ vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vec
   sort(edgeList.begin(), edgeList.end(), [](auto && a, auto && b){
     return a[2] < b[2];
   });
-  sort(queries.begin(), queries.end(), [](auto && a, auto && b){
-    return a[2] < b[2];
+  int m = queries.size();
+  vector<int> inds(m);
+  for (int i = 0; i < m; i++)
+    inds[i] = i;
+  sort(inds.begin(), inds.end(), [&](int x, int y){
+    return queries[x][2] < queries[y][2];
   });
   UnionSet u(n);
   int ind = 0;
-  vector<bool> ans;
-  for (auto && q : queries) {
-    while (ind < edgeList.size() && edgeList[ind][2] < q[2]) {
+  vector<bool> ans(m);
+  for (int i : inds) {
+    while (ind < edgeList.size() && edgeList[ind][2] < queries[i][2]) {
       u.merge(edgeList[ind][0], edgeList[ind][1], edgeList[ind][2]);
       ind++;
     }
-    ans.push_back(u.get(q[0]) == u.get(q[1]));
+    ans[i] = u.get(queries[i][0]) == u.get(queries[i][1]);
   }
   return ans;
 }
