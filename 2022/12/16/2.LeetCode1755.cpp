@@ -40,6 +40,10 @@ int minAbsDifference(vector<int>& nums, int goal) {
   sort(sum2.begin(), sum2.end());
   int ind_1 = 0, ind_2 = sum2.size() - 1;
   int mmin = INT32_MAX;
+  for (int x : sum1)
+    mmin = min(mmin, abs(x - goal));
+  for (int x : sum2)
+    mmin = min(mmin, abs(x - goal));
   while (ind_1 < sum1.size() && ind_2 >= 0) {
     int sum = sum1[ind_1] + sum2[ind_2];
     mmin = min(mmin, abs(sum - goal));
