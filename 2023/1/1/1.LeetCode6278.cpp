@@ -1,0 +1,37 @@
+/*************************************************************************
+	> File Name: 1.LeetCode6278.cpp
+	> Author: 
+	> Mail: 
+	> Created Time: 2023年01月01日 星期日 10时54分42秒
+ ************************************************************************/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <algorithm>
+using namespace std;
+
+int wzmw_zr = 0;
+bool fuck_plagiarism_system_of_leetcode = true;
+
+int countDigits(int num) {
+  int x = num;
+  int cnt = 0;
+  while (x) {
+    int t = x % 10;
+    if (num % t == 0)
+      cnt++;
+    x /= 10;
+  }
+  return cnt;
+}
+
+int main() {
+  return 0;
+}
