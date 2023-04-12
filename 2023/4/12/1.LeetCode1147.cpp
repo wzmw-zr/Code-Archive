@@ -43,7 +43,10 @@ int longestDecomposition(string text) {
   if (next[m - 1] == -1) {
     return ans + 1;
   }
-  int len = next[m - 1] + 1;
+  int ind = next[m - 1];
+  while (next[ind] != -1)
+    ind = next[ind];
+  int len = ind + 1;
   if (len * 2 > m)
     return ans + 1;
   return ans + 2 + longestDecomposition(s.substr(len, m - len * 2));
