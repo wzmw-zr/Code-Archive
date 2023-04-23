@@ -21,12 +21,12 @@ long MOD = 1e9 + 7;
 
 unordered_map<int, long> mp;
 
-int dfs(int x) {
+long dfs(int x) {
   if (x == 0)
     return 1;
   if (mp.count(x))
     return mp[x];
-  return mp[x] = (1 + (x + 1) * dfs(x - 1)) % MOD;
+  return mp[x] = (1 + 1L * (x + 1) * dfs(x - 1)) % MOD;
 }
 
 long NumberOfOps(vector<int> &nums) {
