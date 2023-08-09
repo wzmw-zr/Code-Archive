@@ -1,0 +1,54 @@
+/*************************************************************************
+	> File Name: 2.bishi.cpp
+	> Author: 
+	> Mail: 
+	> Created Time: 2023年08月09日 星期三 22时42分38秒
+ ************************************************************************/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <algorithm>
+#include <functional>
+using namespace std;
+
+int main() {
+  int n, q;
+  cin >> n >> q;
+  vector<vector<int>> graph(n + 1);
+  vector<long> nums(n + 1, 0);
+  vector<long> arr_a(q), arr_b(q);
+  for (int i = 2; i <= n; i++) {
+    int x;
+    cin >> x;
+    graph[i].push_back(x);
+    graph[x].push_back(i);
+  }
+  for (int i = 0; i < q; i++)
+    cin >> arr_a[i];
+  for (int i = 0; i < q; i++)
+    cin >> arr_b[i];
+  function<long long(int, int)> dfs = [&](int ind, int fa) {
+    if (graph[ind].size() == 1 && ind != 1)
+      return nums[ind] = 1;
+    long long cnt = 0;
+    for (int x : graph[ind]) {
+      if (x == fa)
+        continue;
+      cnt += dfs(x, ind);
+    }
+    return nums[ind] = cnt;
+  };
+  dfs(1, 0);
+  long ans = 0;
+  for (int i = 0; i < q; i++)
+    ans ^= nums[arr_a[i]] * nums[arr_b[i]];
+  cout << ans << endl;
+  return 0;
+}
