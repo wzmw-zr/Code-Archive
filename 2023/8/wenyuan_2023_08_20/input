@@ -1,0 +1,7 @@
+BEGIN
+  LOOP n
+    LOOP n
+      PRINT Moe
+    END
+  END
+END
